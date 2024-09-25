@@ -1,0 +1,5 @@
+[lfs]
+url = https://visualGitLfs:hb%25Hv0rLxq@3mfi3uad70.execute-api.us-east-2.amazonaws.com/lfs
+activitytimeout = 60
+tlstimeout = 60
+dialtimeout = 60
