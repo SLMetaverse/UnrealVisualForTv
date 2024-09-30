@@ -83,7 +83,7 @@ class Initialize:
         handler.handle_camera_shot(shot_type)
         handler.handle_metahuman("Aoi", "middle", 0, anim_path)
 
-        handler.renderVideo(self.shotId, self.renderQuality)
+        handler.renderVideo(self.shotId, self.renderQuality + str(constants.FPS))
 
     def get_shot_id_from_args(self):
         return self.shotId

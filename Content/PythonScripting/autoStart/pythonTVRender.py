@@ -46,11 +46,11 @@ def execute_command(cmd, cwd = None):
       return e.stderr
     
 
-def startUnreal(U_PROJECT, py_file, shotGUID, renderQuality, isProdution, verbose = False):
+def startUnreal(U_PROJECT, py_file, shotGUID, renderQuality, isProdution, fps, verbose = False):
     try:
       UNREAL_EXE = getFileFromCollection("C:\\Program Files\\Epic Games\\UE_5.4\\Engine\\Binaries\\Win64", "/**/*Editor-Cmd.exe", "UnrealEditor-Cmd")
       # py_file = getFileFromCollection("./", "/**/**/py*.py", "Render")
-      py_cmd = py_file + " -i " + shotGUID + " -r " + renderQuality + " -p " + str(isProdution)
+      py_cmd = py_file + " --shotId " + shotGUID + " --renderQuality " + renderQuality + " --isprod " + str(isProdution) + " --fps " + fps
       
       print("Unreal Editor started!!")
       print(70*"*")
@@ -71,6 +71,7 @@ parser.add_argument("-p", "--projectPath", required=True)
 parser.add_argument("-i", "--shotId", required=True)
 parser.add_argument("-r", "--renderQuality", help='fast, 720p, 1080p, 2160p', required=True) # "fast", "720p", "1080p", "2160p"
 parser.add_argument("-d", "--production", required=True, default=False, type=lambda x: (str(x).lower() == 'true'))
+parser.add_argument("-f", "--fps", required=False, default=60)
 parser.add_argument("-v", "--verbose", action='count', default=0)
 
 args = parser.parse_args()
@@ -78,6 +79,7 @@ projectDir = args.projectPath
 shotID = args.shotId
 renderQuality = args.renderQuality
 isProd = args.production
+fps = args.fps
 
 startUnreal(
    getFileFromCollection(projectDir, "/**/*.uproject", projectDir.split("'\'")[-1]),
@@ -85,6 +87,7 @@ startUnreal(
    shotID,
    renderQuality,
    isProd,
+   fps,
    0 < args.verbose
 )
 
