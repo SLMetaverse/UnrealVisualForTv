@@ -209,7 +209,7 @@ class SequenceHandler:
         face_animation = unreal.EditorAssetLibrary.load_asset(anim_path)
 
         anim_section.set_editor_property("params", unreal.MovieSceneSkeletalAnimationParams(animation=face_animation))
-        anim_section.set_range(0, self.sequence_duration * constants.FPS)
+        anim_section.set_range(0, self.sequence_duration * int(constants.FPS))
 
         return mh_parent_binding
     
@@ -245,17 +245,25 @@ class SequenceHandler:
         else:
             unreal.log_error("Failed to download Audio file")
 
-    def renderVideo(self, shotId, renderQuality = "2160p"):
-        if renderQuality == "fast":
+    def renderVideo(self, shotId, renderQuality = "2160p60"):
+        if renderQuality == "fast60":
             u_preset_file = "/Game/Maps/LevelSequences/MConfig_720p60audioImageFast"
-        elif renderQuality == "720p":
+        elif renderQuality == "fast24":
+            u_preset_file = "/Game/Maps/LevelSequences/MConfig_720p24audioImageFast"
+        elif renderQuality == "720p60":
             u_preset_file = "/Game/Maps/LevelSequences/MConfig_720p60audio"
-        elif renderQuality == "1080p":
+        elif renderQuality == "1080p60":
             u_preset_file = "/Game/Maps/LevelSequences/MConfig_1080p60audio"
-        elif renderQuality == "2160p":
+        elif renderQuality == "2160p60":
             u_preset_file = "/Game/Maps/LevelSequences/MConfig_2160p60audio"
+        elif renderQuality == "720p24":
+            u_preset_file = "/Game/Maps/LevelSequences/MConfig_720p24audio"
+        elif renderQuality == "1080p24":
+            u_preset_file = "/Game/Maps/LevelSequences/MConfig_1080p24audio"
+        elif renderQuality == "2160p24":
+            u_preset_file = "/Game/Maps/LevelSequences/MConfig_2160p24audio"
         else:
-            u_preset_file = "/Game/Maps/LevelSequences/MConfig_720p60audio"
+            u_preset_file = "/Game/Maps/LevelSequences/MConfig_720p24audioImageFast"
 
 
         unreal.log_warning(f"Quality: {renderQuality}, Render starts in 30 seconds...")
@@ -263,7 +271,6 @@ class SequenceHandler:
         
         u_level_file = "/Game/Maps/StudioMap"
         # u_preset_file = "/Game/Maps/LevelSequences/MConfig_720p60audioImageFast"
-        # u_preset_file = "/Game/Maps/LevelSequences/MConfig_1080p60audio"
         job = self.queue.allocate_new_job(unreal.MoviePipelineExecutorJob)
         job.job_name = shotId
         job.map = unreal.SoftObjectPath(u_level_file)
