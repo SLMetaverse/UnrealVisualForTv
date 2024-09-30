@@ -1,7 +1,10 @@
 import argparse
 import os
+from ast import parse
+
 import unreal
 import shutil
+import utils.constants as constants
 
 
 from SequenceHandler import SequenceHandler
@@ -26,13 +29,16 @@ class Initialize:
         parser.add_argument("-i", "--shotId", required=True)
         parser.add_argument("-r", "--renderQuality", required=True)
         parser.add_argument("-p", "--isprod", required=True, default=False, type=lambda x: (str(x).lower() == 'true'))
+        parser.add_argument("-f", "--fps",required=False,default=constants.FPS)
         
         args = parser.parse_args()
         
         self.shotId = args.shotId
         self.renderQuality = None or args.renderQuality
         self.IsProd = args.isprod
-        
+
+        constants.FPS = args.fps
+
         print(70*"-")
         print(f"IsProduction: {self.IsProd}")
         print(f"renderQuality: {self.renderQuality}")
