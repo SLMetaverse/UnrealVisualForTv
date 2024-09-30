@@ -80,7 +80,7 @@ renderQuality = args.renderQuality
 isProd = args.production
 
 startUnreal(
-   getFileFromCollection(projectDir, "/**/*.uproject", "UnrealVisualTv"),
+   getFileFromCollection(projectDir, "/**/*.uproject", projectDir.split("'\'")[-1]),
    getFileFromCollection(projectDir, "/**/**/*.py", "Initialize"),
    shotID,
    renderQuality,
@@ -88,4 +88,4 @@ startUnreal(
    0 < args.verbose
 )
 
-# cmd: "C:\Program Files\Epic Games\UE_5.4\Engine\Binaries\ThirdParty\Python3\Win64\python.exe" pythonTVRender.py --projectPath "F:\Repos\VisualForTV" --shotId "53faa6c4-ca63-4dfa-a523-a6d3066d3bdc" --renderQuality "fast" --production True
+# cmd: "C:\Program Files\Epic Games\UE_5.4\Engine\Binaries\ThirdParty\Python3\Win64\python.exe" pythonTVRender.py --projectPath "F:\Repos\UnrealVisualForTv" --shotId "1e118d01-7d4d-49d4-ae47-023b568d65f3" --renderQuality "fast" --production True
