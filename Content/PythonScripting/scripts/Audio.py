@@ -1,4 +1,5 @@
 import unreal
+import utils.constants as constants
 
 class Audio:
     def __init__(self, sequence_asset, audio_folder, audio_file_name, duration_in_seconds):
@@ -20,7 +21,7 @@ class Audio:
                 return
         
             section.set_sound(audio_asset)
-            section.set_range(0, self.duration * 60) # 60 is FPS of the sequencer
+            section.set_range(0, self.duration * constants.FPS) # 60 is FPS of the sequencer
   
         else:
             unreal.log_error("No Audio Track Ref")

@@ -1,5 +1,6 @@
 import unreal
 import time
+import utils.constants as constants
 
 from scripts.background import create_background
 from scripts.metahuman import MetaHuman
@@ -208,7 +209,7 @@ class SequenceHandler:
         face_animation = unreal.EditorAssetLibrary.load_asset(anim_path)
 
         anim_section.set_editor_property("params", unreal.MovieSceneSkeletalAnimationParams(animation=face_animation))
-        anim_section.set_range(0, 11400)
+        anim_section.set_range(0, self.sequence_duration * constants.FPS)
 
         return mh_parent_binding
     
